@@ -1,11 +1,32 @@
-<% content_for :title, "New car" %>
 
-<h1>New car</h1>
+<div class="bg-gray-100 py-8 flex justify-center items-center">
+  <div class="container mx-auto w-80">
+    <h1 class="text-3xl font-bold mb-4 text-center">New car</h1>
 
-<%= render "form", car: @car %>
+    <%= form_with(model: @car, local: true) do |form| %>
+      <div class="bg-white shadow-md rounded-lg p-8">
+        <div class="flex flex-col space-y-6">
+          <div>
+            <%= form.label :make, class: "block font-bold mb-2" %>
+            <%= form.text_field :make, class: "border border-gray-300 rounded-md p-2 w-full focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          </div>
+          <div>
+            <%= form.label :model, class: "block font-bold mb-2" %>
+            <%= form.text_field :model, class: "border border-gray-300 rounded-md p-2 w-full focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          </div>
+          <div>
+            <%= form.label :year, class: "block font-bold mb-2" %>
+            <%= form.number_field :year, class: "border border-gray-300 rounded-md p-2 w-full focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          </div>
+          <div class="flex justify-end">
+            <%= form.submit "Create car", class: "px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
-<br>
-
-<div>
-  <%= link_to "Back to cars", cars_path %>
+    <div class="mt-8">
+      <%= link_to "Back to cars", cars_path, class: "px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700" %>
+    </div>
+  </div>
 </div>
