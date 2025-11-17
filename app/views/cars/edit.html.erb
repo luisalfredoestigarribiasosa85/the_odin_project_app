@@ -1,12 +1,22 @@
-<% content_for :title, "Editing car" %>
+<% content_for :title, "Editar vehículo" %>
 
-<h1>Editing car</h1>
+<div class="bg-gradient-to-br from-slate-100 via-slate-200 to-slate-100 py-12">
+  <div class="mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Garage</p>
+      <h1 class="mt-2 text-4xl font-bold text-slate-900">Editar vehículo</h1>
+      <p class="mt-3 text-base text-slate-600">
+        Actualiza la información del automóvil seleccionado.
+      </p>
+    </div>
 
-<%= render "form", car: @car %>
+    <div class="mt-10 rounded-3xl border border-slate-200 bg-white/80 p-8 shadow-sm backdrop-blur-sm">
+      <%= render "form", car: @car, submit_label: "Actualizar vehículo" %>
+    </div>
 
-<br>
-
-<div>
-  <%= link_to "Show this car", @car %> |
-  <%= link_to "Back to cars", cars_path %>
+    <div class="mt-8 flex justify-center gap-4">
+      <%= link_to "Ver vehículo", @car, class: "inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-400 hover:text-slate-900 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-300" %>
+      <%= link_to "Volver al listado", cars_path, class: "inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-400 hover:text-slate-900 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-300" %>
+    </div>
+  </div>
 </div>

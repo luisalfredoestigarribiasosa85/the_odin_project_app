@@ -1,10 +1,44 @@
-<p style="color: green"><%= notice %></p>
+<div class="bg-gradient-to-br from-slate-100 via-slate-200 to-slate-100 py-12">
+  <div class="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
+    <% if notice.present? %>
+      <div class="mb-6 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 shadow-sm">
+        <p><%= notice %></p>
+      </div>
+    <% end %>
 
-<%= render @car %>
+    <div class="flex flex-col gap-8 lg:flex-row">
+      <div class="flex-1">
+        <div class="rounded-3xl border border-slate-200 bg-white/70 p-6 shadow-sm backdrop-blur-sm">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Detalle</p>
+              <h2 class="mt-2 text-3xl font-bold text-slate-900">Ficha del vehículo</h2>
+            </div>
+            <span class="rounded-full bg-slate-900 px-4 py-1 text-sm font-semibold text-white shadow-sm">
+              ID <%= @car.id %>
+            </span>
+          </div>
 
-<div>
-  <%= link_to "Edit this car", edit_car_path(@car) %> |
-  <%= link_to "Back to cars", cars_path %>
+          <div class="mt-6">
+            <%= render partial: "cars/car", locals: { car: @car, context: :detail } %>
+          </div>
+        </div>
+      </div>
 
-  <%= button_to "Destroy this car", @car, method: :delete %>
+      <aside class="w-full lg:w-80">
+        <div class="sticky top-24 space-y-5 rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm">
+          <h3 class="text-lg font-semibold text-slate-900">Acciones</h3>
+          <p class="text-sm text-slate-600">Gestiona este vehículo desde el panel lateral.</p>
+
+          <div class="space-y-3">
+            <%= link_to "Editar información", edit_car_path(@car), class: "inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900" if user_signed_in? %>
+
+            <%= link_to "Volver al listado", cars_path, class: "inline-flex w-full items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-400 hover:text-slate-900 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-300" %>
+
+            <%= button_to "Eliminar vehículo", @car, method: :delete, class: "inline-flex w-full items-center justify-center gap-2 rounded-full bg-red-800 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-800/20 transition hover:-translate-y-0.5 hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-800 cursor-pointer" if user_signed_in? %>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
 </div>

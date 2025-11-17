@@ -1,9 +1,12 @@
-<%= form_with(model: car) do |form| %>
-  <% if car.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(car.errors.count, "error") %> prohibited this car from being saved:</h2>
+<% submit_label = local_assigns.fetch(:submit_label, "Guardar vehículo") %>
 
-      <ul>
+<%= form_with(model: car, local: true, multipart: true, html: { class: "space-y-8" }) do |form| %>
+  <% if car.errors.any? %>
+    <div class="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
+      <h2 class="font-semibold">
+        <%= pluralize(car.errors.count, "error") %> impiden guardar este vehículo:
+      </h2>
+      <ul class="mt-2 list-disc space-y-1 pl-5">
         <% car.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,22 +14,45 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :make, style: "display: block" %>
-    <%= form.text_field :make %>
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <div>
+      <%= form.label :make, "Marca", class: "text-sm font-semibold text-slate-700" %>
+      <%= form.text_field :make, class: "mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20" %>
+    </div>
+
+    <div>
+      <%= form.label :model, "Modelo", class: "text-sm font-semibold text-slate-700" %>
+      <%= form.text_field :model, class: "mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20" %>
+    </div>
+
+    <div>
+      <%= form.label :year, "Año", class: "text-sm font-semibold text-slate-700" %>
+      <%= form.number_field :year, class: "mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20" %>
+    </div>
+
+    <div>
+      <%= form.label :featured_image, "Imagen destacada", class: "text-sm font-semibold text-slate-700" %>
+      <%= form.file_field :featured_image, direct_upload: true, class: "mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20" %>
+    </div>
+
+    <div>
+      <%= form.label :price, "Precio", class: "text-sm font-semibold text-slate-700" %>
+      <%= form.number_field :price, step: "0.01", inputmode: "decimal", class: "mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20" %>
+    </div>
+
+    <div>
+      <%= form.label :phone_number, "Número de teléfono", class: "text-sm font-semibold text-slate-700" %>
+      <%= form.text_field :phone_number, class: "mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20" %>
+    </div>
+
+    <div class="sm:col-span-2">
+      <%= form.label :description, "Descripción", class: "text-sm font-semibold text-slate-700" %>
+      <%= form.rich_text_area :description, class: "mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20" %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :model, style: "display: block" %>
-    <%= form.text_field :model %>
-  </div>
-
-  <div>
-    <%= form.label :year, style: "display: block" %>
-    <%= form.number_field :year %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="flex flex-col gap-3 sm:flex-row sm:justify-end">
+    <%= form.submit submit_label, class: "inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 sm:w-auto" %>
+    <%= link_to "Cancelar", cars_path, class: "inline-flex w-full items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-400 hover:text-slate-900 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-300 sm:w-auto" %>
   </div>
 <% end %>

@@ -1,11 +1,41 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  make: MyString
-  model: MyString
-  year: 1
+  make: "Toyota"
+  model: "Camry"
+  year: 2022
+  featured_image: ""
+  price: 25000
+  description: "El Camry es un coche muy comodo y fiable, con buen rendimiento y confort. Es ideal para conducir largas distancias, y su diseño aerodinamico le da un aspecto muy moderno."
 
 two:
-  make: MyString
-  model: MyString
-  year: 1
+  make: "Honda"
+  model: "Civic"
+  year: 2022
+  featured_image: ""
+  price: 20000
+  description: "El Civic es un coche compacto y eficiente, con buen rendimiento y confort. Es ideal para conducir largas distancias, y su diseño aerodinamico le da un aspecto muy moderno."
+
+three:
+  make: "Ford"
+  model: "Mustang"
+  year: 2022
+  featured_image: ""
+  price: 30000
+  description: "El Mustang es un coche compacto y eficiente, con buen rendimiento y confort. Es ideal para conducir largas distancias, y su diseño aerodinamico le da un aspecto muy moderno."
+
+four:
+  make: "Chevrolet"
+  model: "Camaro"
+  year: 2022
+  featured_image: ""
+  price: 25000
+  description: "El Camaro es un coche compacto y eficiente, con buen rendimiento y confort. Es ideal para conducir largas distancias, y su diseño aerodinamico le da un aspecto muy moderno."
+
+five:
+  make: "Dodge"
+  model: "Charger"
+  year: 2022
+  featured_image: ""
+  price: 25000
+  description: "El Charger es un coche compacto y eficiente, con buen rendimiento y confort. Es ideal para conducir largas distancias, y su diseño aerodinamico le da un aspecto muy moderno."

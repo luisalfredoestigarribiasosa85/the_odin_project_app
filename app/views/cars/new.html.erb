@@ -1,32 +1,20 @@
 
-<div class="bg-gray-100 py-8 flex justify-center items-center">
-  <div class="container mx-auto w-80">
-    <h1 class="text-3xl font-bold mb-4 text-center">New car</h1>
+<div class="bg-gradient-to-br from-slate-100 via-slate-200 to-slate-100 py-12">
+  <div class="mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Garage</p>
+      <h1 class="mt-2 text-4xl font-bold text-slate-900">Agregar nuevo vehículo</h1>
+      <p class="mt-3 text-base text-slate-600">
+        Completa la información para sumar un automóvil a la colección.
+      </p>
+    </div>
 
-    <%= form_with(model: @car, local: true) do |form| %>
-      <div class="bg-white shadow-md rounded-lg p-8">
-        <div class="flex flex-col space-y-6">
-          <div>
-            <%= form.label :make, class: "block font-bold mb-2" %>
-            <%= form.text_field :make, class: "border border-gray-300 rounded-md p-2 w-full focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-          </div>
-          <div>
-            <%= form.label :model, class: "block font-bold mb-2" %>
-            <%= form.text_field :model, class: "border border-gray-300 rounded-md p-2 w-full focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-          </div>
-          <div>
-            <%= form.label :year, class: "block font-bold mb-2" %>
-            <%= form.number_field :year, class: "border border-gray-300 rounded-md p-2 w-full focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-          </div>
-          <div class="flex justify-end">
-            <%= form.submit "Create car", class: "px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700" %>
-          </div>
-        </div>
-      </div>
-    <% end %>
+    <div class="mt-10 rounded-3xl border border-slate-200 bg-white/80 p-8 shadow-sm backdrop-blur-sm">
+      <%= render "form", car: @car, submit_label: "Crear vehículo" %>
+    </div>
 
-    <div class="mt-8">
-      <%= link_to "Back to cars", cars_path, class: "px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700" %>
+    <div class="mt-8 flex justify-center">
+      <%= link_to "Volver al listado", cars_path, class: "inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-400 hover:text-slate-900 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-300" %>
     </div>
   </div>
 </div>

@@ -1,17 +1,92 @@
-<div id="<%= dom_id car %>">
-  <p>
-    <strong>Make:</strong>
-    <%= car.make %>
-  </p>
+<% context = local_assigns.fetch(:context, :card) %>
+<% padding_class = context == :detail ? "p-8" : "p-6 pb-12" %>
+<% image_height_class = context == :detail ? "h-64 sm:h-72 lg:h-80" : "h-48" %>
 
-  <p>
-    <strong>Model:</strong>
-    <%= car.model %>
-  </p>
+<div
+  id="<%= dom_id car %>"
+  class="group rounded-2xl border border-slate-200 bg-white/80 <%= padding_class %> shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+>
+  <div class="space-y-6">
+    <div class="relative overflow-hidden rounded-2xl border border-slate-100/60 bg-slate-100">
+      <% if car.featured_image.attached? %>
+        <% if car.featured_image.variable? %>
+          <%= image_tag car.featured_image.variant(resize_to_fill: [960, 640]), alt: "Imagen destacada de #{car.make} #{car.model}", class: "w-full #{image_height_class} object-cover transition-all duration-500 group-hover:scale-[1.02]" %>
+        <% else %>
+          <%= image_tag car.featured_image, alt: "Imagen destacada de #{car.make} #{car.model}", class: "w-full #{image_height_class} object-cover" %>
+        <% end %>
+      <% else %>
+        <div class="flex <%= image_height_class %> items-center justify-center bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200 text-slate-400">
+          <div class="flex flex-col items-center gap-2">
+            <span class="text-3xl">🚗</span>
+            <p class="text-xs uppercase tracking-widest">Sin imagen</p>
+          </div>
+        </div>
+      <% end %>
 
-  <p>
-    <strong>Year:</strong>
-    <%= car.year %>
-  </p>
+      <% if context == :card %>
+        <div class="pointer-events-none absolute inset-x-4 -bottom-6 rounded-2xl border border-white/70 bg-white/90 px-4 py-3 shadow-lg shadow-slate-900/10">
+          <p class="text-sm font-semibold text-slate-700">Ficha rápida</p>
+          <p class="text-xs text-slate-500">Revisa el botón inferior para ver más</p>
+        </div>
+      <% end %>
+    </div>
 
+    <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+      <h3 class="text-xl font-semibold text-slate-900">
+        <%= "#{car.make} #{car.model}" %>
+      </h3>
+      
+      <div class="rounded-xl bg-slate-50/60 p-4 transition-all duration-300 group-hover:bg-slate-50">
+        <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Precio</dt>
+        <dd class="mt-1 text-base font-medium text-slate-900"><%= number_to_currency(car.price) %></dd>
+      </div>
+
+    </div>
+
+    <dl class="grid gap-4 sm:grid-cols-3">
+      <div class="rounded-xl bg-slate-50/60 p-4 transition-all duration-300 group-hover:bg-slate-50">
+        <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Marca</dt>
+        <dd class="mt-1 text-base font-medium text-slate-900"><%= car.make %></dd>
+      </div>
+      <div class="rounded-xl bg-slate-50/60 p-4 transition-all duration-300 group-hover:bg-slate-50">
+        <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Modelo</dt>
+        <dd class="mt-1 text-base font-medium text-slate-900"><%= car.model %></dd>
+      </div>
+      <div class="rounded-xl bg-slate-50/60 p-4 transition-all duration-300 group-hover:bg-slate-50">
+        <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Año</dt>
+        <dd class="mt-1 text-base font-medium text-slate-900"><%= car.year %></dd>
+      </div>
+    </dl>
+    <hr>
+<% if context == :detail && @car.phone_number.present? %>
+<h2>Información de Contacto</h2>
+
+<p>
+  <strong>Número del Vendedor:</strong>
+  <%# 1. Limpiamos el número para la URL (solo dígitos) %>
+  <%# 2. Mostramos el número original para que el usuario vea el formato. %>
+  
+  <% clean_number = @car.phone_number.gsub(/[^0-9\+]/, '') %>
+  
+  <%= link_to @car.phone_number, "tel:#{clean_number}", class: "text-blue-600 hover:text-blue-800" %>
+  
+  <small>(Haz clic para llamar)</small>
+</p>
+
+<hr>
+
+<% end %>
+    <% if context == :detail %>
+      <section class="mt-6">
+        <% if car.description.present? %>
+          <p class="text-sm font-semibold text-slate-700">Descripción</p>
+          <div class="mt-2">
+            <%= car.description %>
+          </div>
+        <% else %>
+          <p class="text-sm font-semibold text-slate-700">Sin descripción</p>
+        <% end %>
+      </section>
+    <% end %>
+  </div>
 </div>

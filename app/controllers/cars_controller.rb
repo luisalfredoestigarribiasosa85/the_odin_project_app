@@ -1,4 +1,5 @@
 class CarsController < ApplicationController
+  before_action :authenticate_user!, except: %i[ index show ]
   before_action :set_car, only: %i[ show edit update destroy ]
 
   # GET /cars or /cars.json
@@ -65,6 +66,6 @@ class CarsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def car_params
-      params.expect(car: [ :make, :model, :year ])
+      params.expect(car: [ :make, :model, :year, :featured_image, :description, :price, :phone_number ])
     end
 end
