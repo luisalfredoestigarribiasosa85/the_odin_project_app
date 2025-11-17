@@ -9,10 +9,51 @@
   <div class="space-y-6">
     <div class="relative overflow-hidden rounded-2xl border border-slate-100/60 bg-slate-100">
       <% if car.featured_image.attached? %>
-        <% if car.featured_image.variable? %>
-          <%= image_tag car.featured_image.variant(resize_to_fill: [960, 640]), alt: "Imagen destacada de #{car.make} #{car.model}", class: "w-full #{image_height_class} object-cover transition-all duration-500 group-hover:scale-[1.02]" %>
+        <% preview_image = if car.featured_image.variable?
+                             car.featured_image.variant(resize_to_fill: [960, 640])
+                           else
+                             car.featured_image
+                           end %>
+        <% preview_tag = image_tag(preview_image,
+                                   alt: "Imagen destacada de #{car.make} #{car.model}",
+                                   class: "w-full #{image_height_class} object-cover transition-all duration-500 group-hover:scale-[1.02]") %>
+        <% if context == :detail %>
+          <% full_image = car.featured_image.variable? ? car.featured_image.variant(resize_to_limit: [1600, 1200]) : car.featured_image %>
+          <div data-controller="image-modal" class="relative">
+            <button type="button"
+                    class="block w-full overflow-hidden rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80"
+                    data-action="click->image-modal#open">
+              <%= preview_tag %>
+              <span class="pointer-events-none absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full bg-slate-900/80 px-3 py-1 text-xs font-semibold text-white shadow-lg">
+                Ampliar imagen
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h6m0 0v6m0-6-7.5 7.5M9 15H3m0 0V9m0 6 7.5-7.5" />
+                </svg>
+              </span>
+            </button>
+            <div data-image-modal-target="overlay"
+                 class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/90 px-4 py-10"
+                 role="dialog"
+                 aria-modal="true"
+                 data-action="click->image-modal#close">
+              <div class="relative w-full max-w-4xl" data-action="click->image-modal#stop">
+                <button type="button"
+                        class="absolute -top-10 right-0 inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-slate-900 shadow-lg shadow-black/10 transition hover:bg-white"
+                        aria-label="Cerrar"
+                        data-action="click->image-modal#close">
+                  Cerrar
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                <%= image_tag full_image,
+                              alt: "Vista ampliada de #{car.make} #{car.model}",
+                              class: "w-full max-h-[80vh] rounded-3xl border border-white/20 object-contain shadow-2xl shadow-black/30" %>
+              </div>
+            </div>
+          </div>
         <% else %>
-          <%= image_tag car.featured_image, alt: "Imagen destacada de #{car.make} #{car.model}", class: "w-full #{image_height_class} object-cover" %>
+          <%= preview_tag %>
         <% end %>
       <% else %>
         <div class="flex <%= image_height_class %> items-center justify-center bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200 text-slate-400">
@@ -87,6 +128,26 @@
           <p class="text-sm font-semibold text-slate-700">Sin descripción</p>
         <% end %>
       </section>
+
+      <% if car.gallery_images.attached? %>
+        <section class="mt-8">
+          <p class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">Galería adicional</p>
+          <p class="mt-2 text-base text-slate-700">Haz clic en cada imagen para abrirla en una pestaña nueva.</p>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2">
+            <% car.gallery_images.each do |gallery_image| %>
+              <% gallery_preview = gallery_image.variable? ? gallery_image.variant(resize_to_fill: [640, 420]) : gallery_image %>
+              <%= link_to url_for(gallery_image),
+                          target: "_blank",
+                          rel: "noopener",
+                          class: "group block overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 transition hover:-translate-y-1 hover:shadow-xl" do %>
+                <%= image_tag gallery_preview,
+                              alt: "Foto adicional de #{car.make} #{car.model}",
+                              class: "h-56 w-full object-cover transition duration-300 group-hover:scale-[1.03]" %>
+              <% end %>
+            <% end %>
+          </div>
+        </section>
+      <% end %>
     <% end %>
   </div>
 </div>
