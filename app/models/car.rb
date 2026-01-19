@@ -1,4 +1,5 @@
 class Car < ApplicationRecord
+    belongs_to :user
     has_one_attached :featured_image
     has_many_attached :gallery_images
     has_rich_text :description
