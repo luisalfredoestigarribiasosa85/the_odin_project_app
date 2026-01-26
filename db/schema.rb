@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_24_212511) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_26_214326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -71,6 +71,27 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_24_212511) do
     t.index ["user_id"], name: "index_cars_on_user_id"
   end
 
+  create_table "chat_rooms", force: :cascade do |t|
+    t.bigint "car_id", null: false
+    t.bigint "buyer_id", null: false
+    t.bigint "seller_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id"], name: "index_chat_rooms_on_buyer_id"
+    t.index ["car_id"], name: "index_chat_rooms_on_car_id"
+    t.index ["seller_id"], name: "index_chat_rooms_on_seller_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "chat_room_id", null: false
+    t.bigint "user_id", null: false
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_room_id"], name: "index_messages_on_chat_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -90,4 +111,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_24_212511) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "car_images", "cars"
   add_foreign_key "cars", "users"
+  add_foreign_key "chat_rooms", "cars"
+  add_foreign_key "chat_rooms", "users", column: "buyer_id"
+  add_foreign_key "chat_rooms", "users", column: "seller_id"
+  add_foreign_key "messages", "chat_rooms"
+  add_foreign_key "messages", "users"
 end
