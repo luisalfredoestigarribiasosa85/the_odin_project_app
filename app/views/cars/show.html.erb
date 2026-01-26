@@ -35,7 +35,9 @@
 
             <%= link_to "Volver al listado", cars_path, class: "inline-flex w-full items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-400 hover:text-slate-900 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-300" %>
 
-            <%= button_to "Eliminar vehículo", @car, method: :delete, class: "inline-flex w-full items-center justify-center gap-2 rounded-full bg-red-800 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-800/20 transition hover:-translate-y-0.5 hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-800 cursor-pointer" if user_signed_in? && current_user.id == @car.user_id %>
+            <% if user_signed_in? && current_user.id == @car.user_id %>
+              <%= button_to "Eliminar vehículo", @car, method: :delete, data: { turbo_confirm: "¿Estás seguro de eliminarlo?" }, class: "inline-flex w-full items-center justify-center gap-2 rounded-full bg-red-800 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-800/20 transition hover:-translate-y-0.5 hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-800 cursor-pointer" %>
+            <% end %>
           </div>
         </div>
       </aside>

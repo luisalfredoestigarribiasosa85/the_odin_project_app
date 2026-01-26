@@ -22,6 +22,26 @@
                 class: "mt-2 block w-full rounded-lg border border-slate-200 bg-white px-4 py-2 text-slate-900 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1" %>
         </div>
 
+        <div>
+          <%= f.label :username, class: "block text-sm font-medium text-slate-700" %>
+          <%= f.text_field :username,
+                autocomplete: "username",
+                class: "mt-2 block w-full rounded-lg border border-slate-200 bg-white px-4 py-2 text-slate-900 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1" %>
+        </div>
+
+        <div>
+          <%= f.label :bio, class: "block text-sm font-medium text-slate-700" %>
+          <%= f.rich_text_area :bio,
+                rows: 3,
+                class: "mt-2 block w-full rounded-lg border border-slate-200 bg-white px-4 py-2 text-slate-900 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1" %>
+        </div>
+
+        <div>
+          <%= f.label :avatar, class: "block text-sm font-medium text-slate-700" %>
+          <%= f.file_field :avatar,
+                class: "mt-2 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" %>
+        </div>
+
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <div class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
             Actualmente esperando confirmación para: <strong><%= resource.unconfirmed_email %></strong>
