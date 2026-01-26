@@ -5,10 +5,11 @@ class MessagesController < ApplicationController
         @message.user = current_user # Aquí le decimos quién es el autor
 
         if @message.save
-            redirect_to @chat_room
+            # No ponemos redirect_to. Rails buscará create.turbo_stream.erb
+            # que es el archivo que se encarga de actualizar la vista
+            # sin recargar la página.
         else
-            # Por ahora solo redirigimos, luego usaremos Turbo
-            redirect_to @chat_room, alert: "No se pudo enviar el mensaje."
+            render :new, status: :unprocessable_entity
         end
     end
 

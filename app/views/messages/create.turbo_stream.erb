@@ -1,0 +1,6 @@
+<%# app/views/messages/create.turbo_stream.erb %>
+<%# 1. Añadimos el mensaje al final del div #messages %>
+<%= turbo_stream.append "messages", partial: "messages/message", locals: { message: @message } %>
+
+<%# 2. Limpiamos el formulario para poder escribir otro mensaje %>
+<%= turbo_stream.replace "new_message", partial: "messages/form", locals: { chat_room: @chat_room, message: Message.new } %>
