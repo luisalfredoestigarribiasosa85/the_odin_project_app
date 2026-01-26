@@ -38,6 +38,10 @@
             <% if user_signed_in? && current_user.id == @car.user_id %>
               <%= button_to "Eliminar vehículo", @car, method: :delete, data: { turbo_confirm: "¿Estás seguro de eliminarlo?" }, class: "inline-flex w-full items-center justify-center gap-2 rounded-full bg-red-800 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-800/20 transition hover:-translate-y-0.5 hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-800 cursor-pointer" %>
             <% end %>
+
+            <% if user_signed_in? && current_user.id != @car.user_id %>
+              <%= button_to "Enviar mensaje al vendedor", chat_rooms_path(car_id: @car.id), method: :post, class: "inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 cursor-pointer" %>
+            <% end %>
           </div>
         </div>
       </aside>

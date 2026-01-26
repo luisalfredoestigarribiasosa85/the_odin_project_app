@@ -35,6 +35,8 @@
                       class: [nav_link_base, current_page?(new_car_path) ? "bg-white text-slate-900 shadow-lg shadow-white/10" : "border border-white/10 text-white hover:border-white/30 hover:bg-white/10"] %>
           <%= link_to "Mi Perfil", user_path(current_user),
                       class: [nav_link_base, current_page?(user_path(current_user)) ? "bg-white text-slate-900 shadow-lg shadow-white/10" : "border border-white/10 text-white hover:border-white/30 hover:bg-white/10"] %>
+          <%= link_to "Mis Conversaciones", chat_rooms_path,
+                      class: [nav_link_base, current_page?(chat_rooms_path) ? "bg-white text-slate-900 shadow-lg shadow-white/10" : "border border-white/10 text-white hover:border-white/30 hover:bg-white/10"] %>
           <%= link_to "Editar Perfil", edit_user_registration_path,
                       class: [nav_link_base, current_page?(edit_user_registration_path) ? "bg-white text-slate-900 shadow-lg shadow-white/10" : "border border-white/10 text-white hover:border-white/30 hover:bg-white/10"] %>
           <%= link_to "Cerrar Sesión", destroy_user_session_path,
