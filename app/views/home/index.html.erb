@@ -1,34 +1,37 @@
 <% content_for :title, "Inicio" %>
 
 <div class="space-y-24">
-  <section class="relative overflow-visible rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white shadow-2xl">
+  <section class="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white shadow-2xl">
     <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
-      <div class="absolute inset-y-0 right-0 hidden w-2/5 bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.4),_transparent_60%)] sm:block"></div>
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.35),_transparent_60%)]"></div>
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(15,118,110,0.35),_transparent_65%)]"></div>
-      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+      <div class="absolute inset-y-0 right-0 hidden w-2/5 bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.5),_transparent_60%)] sm:block"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.4),_transparent_60%)]"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(15,118,110,0.4),_transparent_65%)]"></div>
+      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+      <svg class="pointer-events-none absolute -right-40 -top-40 h-96 w-96 text-blue-500/10" fill="currentColor" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="100"></circle>
+      </svg>
     </div>
 
-    <div class="relative z-10 mx-auto flex flex-col gap-10 px-6 py-16 xl:flex-row xl:items-center lg:max-w-[1200px]">
-      <div class="space-y-6 text-balance">
-        <p class="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-100">
-          <span class="text-base">★</span> Boutique automotriz
-        </p>
+    <div class="relative z-10 mx-auto flex flex-col gap-10 px-6 py-20 xl:flex-row xl:items-center lg:max-w-[1200px]">
+      <div class="space-y-8 text-balance">
+        <div class="inline-flex items-center gap-2 rounded-full border border-emerald-400/50 bg-emerald-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-200">
+          <span class="text-base animate-pulse">⭐</span> Boutique automotriz premium
+        </div>
         <div class="space-y-4">
-          <h1 class="text-4xl font-bold leading-tight sm:text-5xl">
+          <h1 class="text-5xl font-black leading-tight sm:text-6xl bg-gradient-to-r from-white via-emerald-200 to-cyan-200 bg-clip-text text-transparent">
             Tu próximo vehículo en un solo clic
           </h1>
-          <p class="text-base text-slate-100/80">
-            Nos especializamos en la venta de vehículos de todas las marcas y modelos, nuevos y de segunda mano, con asesoramiento personalizado y garantías de calidad.
+          <p class="text-lg text-slate-100/85 max-w-xl">
+            Plataforma segura para comprar y vender autos. Vehículos inspeccionados, asesores reales y atención 24/7.
           </p>
         </div>
-        <div class="flex flex-col gap-3 sm:flex-row">
-          <%= link_to "Ver catálogo completo", cars_path,
-                      class: "inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-white/20 transition hover:-translate-y-0.5 hover:shadow-xl" %>
+        <div class="flex flex-col gap-4 sm:flex-row">
+          <%= link_to "Ver catálogo", cars_path,
+                      class: "group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 px-7 py-4 text-base font-bold text-slate-900 shadow-xl shadow-emerald-500/40 transition duration-300 hover:shadow-2xl hover:shadow-emerald-500/60 hover:-translate-y-1 hover:scale-105" %>
           <% secondary_cta_path = user_signed_in? ? new_car_path : new_user_registration_path %>
           <%= link_to(user_signed_in? ? "Publicar mi auto" : "Crear cuenta",
                       secondary_cta_path,
-                      class: "inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white/90 transition hover:-translate-y-0.5 hover:border-white hover:text-white") %>
+                      class: "group inline-flex items-center justify-center gap-2 rounded-full border-2 border-emerald-400/50 bg-white/5 backdrop-blur-sm px-7 py-4 text-base font-bold text-white/90 transition duration-300 hover:border-emerald-300 hover:bg-white/15 hover:text-white hover:-translate-y-1") %>
         </div>
         <div class="flex flex-col gap-4 border-t border-white/20 pt-6 text-sm text-slate-200 sm:flex-row sm:items-center">
           <div class="flex items-center gap-3">
@@ -50,121 +53,135 @@
 
       <div class="grid grid-cols-2 gap-5 sm:grid-cols-2 sm:gap-7 lg:grid-cols-4 xl:grid-cols-2 xl:max-w-sm xl:self-stretch lg:max-w-[400px]">
         <% [[User.count, "Clientes felices"], [Car.count, "Autos activos"], ["24/7", "Soporte dedicado"], ["4.9/5", "Calificación"]].each do |metric, label| %>
-          <div class="rounded-[28px] border border-white/60 bg-gradient-to-br from-white via-white/90 to-slate-50/80 px-5 py-7 text-center shadow-2xl shadow-black/15 content-center">
-            <p class="text-3xl font-bold text-slate-900"><%= metric %></p>
-            <p class="mt-2 text-xs font-semibold uppercase tracking-[0.25em] text-slate-500"><%= label %></p>
+          <div class="group relative rounded-2xl border border-emerald-400/30 bg-gradient-to-br from-white/15 via-white/10 to-emerald-400/5 backdrop-blur-sm px-5 py-7 text-center shadow-xl shadow-black/30 content-center transition duration-300 hover:border-emerald-400/60 hover:shadow-emerald-500/20 hover:bg-white/20">
+            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-400/0 to-cyan-400/0 opacity-0 transition duration-300 group-hover:from-emerald-400/10 group-hover:to-cyan-400/10"></div>
+            <p class="relative text-3xl font-black text-white"><%= metric %></p>
+            <p class="relative mt-2 text-xs font-bold uppercase tracking-[0.25em] text-slate-300"><%= label %></p>
           </div>
         <% end %>
       </div>
     </div>
   </section>
 
-  <section class="grid gap-10 rounded-3xl border border-slate-200 bg-white/95 p-8 shadow-xl shadow-slate-200/60 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-    <div class="space-y-5">
-      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Autos disponibles</p>
-      <h2 class="text-3xl font-bold text-slate-900">Compra y vende autos de manera segura</h2>
-      <p class="text-base text-slate-600">
-        Publica tus autos y encuentra autos para comprar de manera fácil y segura.
+  <section class="grid gap-10 rounded-3xl border border-slate-200 bg-gradient-to-br from-white/98 via-blue-50/50 to-emerald-50/30 p-8 shadow-2xl sm:p-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+    <div class="space-y-6">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.3em] text-emerald-600">Compra y Vende</p>
+        <h2 class="mt-3 text-4xl font-black text-slate-900">Transacciones seguras y confiables</h2>
+      </div>
+      <p class="text-lg text-slate-700 max-w-lg">
+        Nuestra plataforma verifica cada vehículo y cada usuario para garantizar que tu experiencia sea segura y satisfactoria.
       </p>
-      <div class="mt-5 grid gap-4 sm:grid-cols-2">
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
         <% features = [
-          ["Publica tu auto", "Publica tus autos y encuentra compradores"],
-          ["Compradores de confianza", "Compradores registrados y revisados"],
-          ["Coordinar pagos por teléfono", "Coordinar pagos por teléfono directamente con los compradores"],
-          ["Asistencia en línea", "Atención al cliente 24/7"]
+          ["Publica fácil", "Sube fotos y detalles del auto en minutos"],
+          ["Mensajes seguros", "Chat integrado directamente en la plataforma"],
+          ["Verificación completa", "Revisión mecánica + documentación al día"],
+          ["Soporte 24/7", "Atención personalizada siempre disponible"]
         ] %>
         <% features.each do |title, description| %>
-          <div class="rounded-2xl border border-slate-100 bg-slate-50/80 p-5">
-            <p class="text-base font-semibold text-slate-900"><%= title %></p>
-            <p class="mt-1 text-sm text-slate-600"><%= description %></p>
+          <div class="group rounded-xl border border-emerald-200/50 bg-gradient-to-br from-white to-emerald-50/30 p-5 transition duration-300 hover:border-emerald-400/70 hover:bg-emerald-50/60 hover:shadow-lg">
+            <p class="text-base font-bold text-slate-900">✓ <%= title %></p>
+            <p class="mt-2 text-sm text-slate-600"><%= description %></p>
           </div>
         <% end %>
       </div>
     </div>
 
-    <div class="space-y-6 rounded-3xl border border-slate-100 bg-slate-900/90 p-8 text-white shadow-lg shadow-slate-900/20">
-      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-white/50">Comienza ahora</p>
-      <h3 class="text-2xl font-bold">Registrate y comienza a publicar tus autos</h3>
-      <div class="mt-5 grid gap-4 sm:grid-cols-2">
+    <div class="space-y-6 rounded-2xl border border-slate-200/80 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 text-white shadow-2xl">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.3em] text-emerald-300">Comienza en 4 pasos</p>
+        <h3 class="mt-2 text-2xl font-black">Listo para vender?</h3>
+      </div>
+      <div class="mt-6 space-y-4">
         <% steps = [
-          ["Registrarte", "Crea tu cuenta de usuario y sube tus datos"],
-          ["Publica tu auto", "Carga información detallada de tu auto y comienza a vender"],
-          ["Comprar autos", "Busca autos disponibles y contacta a los vendedores"],
-          ["Coordinar pagos por teléfono", "Coordinar pagos por teléfono directamente con los compradores"]
+          ["Registrarte", "Crea tu cuenta segura"],
+          ["Publicar auto", "Carga información y fotos"],
+          ["Recibe ofertas", "Contactos de compradores"],
+          ["Concreta venta", "Coordina con confianza"]
         ] %>
         <% steps.each_with_index do |(title, description), index| %>
-          <div class="flex gap-4">
-            <div class="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-sm font-bold text-white/90">
+          <div class="group flex gap-4 rounded-lg border border-white/10 bg-white/5 p-4 transition hover:bg-white/10 hover:border-emerald-400/50">
+            <div class="mt-1 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 text-sm font-bold text-slate-900 shadow-lg">
               <%= index + 1 %>
             </div>
             <div>
-              <p class="text-base font-semibold"><%= title %></p>
-              <p class="text-sm text-white/80"><%= description %></p>
+              <p class="font-bold text-white"><%= title %></p>
+              <p class="text-sm text-white/70"><%= description %></p>
             </div>
           </div>
         <% end %>
       </div>
-      <%= link_to "Registrarse", new_user_registration_path,
-                  class: "inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-white/20 transition hover:-translate-y-0.5" %>
+      <%= link_to "Comenzar ahora", new_user_registration_path,
+                  class: "mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 px-6 py-3 text-base font-bold text-slate-900 shadow-lg shadow-emerald-500/30 transition hover:shadow-emerald-500/50 hover:-translate-y-0.5 hover:scale-105" %>
     </div>
   </section>
 
-  <section class="rounded-3xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-slate-100 p-8 shadow-lg">
-    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+  <section class="rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-blue-50 p-8 shadow-2xl sm:p-12">
+    <div class="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Destacados</p>
-        <h2 class="mt-2 text-3xl font-bold text-slate-900">Vehículos listos para estrenar</h2>
-        <p class="mt-3 max-w-2xl text-base text-slate-600">Explora algunas opciones populares que se encuentran disponibles ahora mismo.</p>
+        <p class="text-xs font-bold uppercase tracking-[0.3em] text-cyan-600">Destacados</p>
+        <h2 class="mt-3 text-4xl font-black text-slate-900">Vehículos en tendencia</h2>
+        <p class="mt-3 max-w-2xl text-lg text-slate-600">Descubre los autos más populares disponibles ahora. Todos verificados y listos.</p>
       </div>
-      <%= link_to "Ver todos los autos", cars_path,
-                  class: "inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-400 hover:text-slate-900 hover:shadow-lg" %>
+      <%= link_to "Ver catálogo completo →", cars_path,
+                  class: "group inline-flex items-center justify-center gap-2 rounded-full border-2 border-slate-300 bg-white px-6 py-3 text-base font-bold text-slate-900 shadow-md transition hover:border-emerald-400 hover:bg-emerald-50 hover:text-slate-900 hover:shadow-lg hover:-translate-y-1" %>
     </div>
 
     <% if @featured_cars.any? %>
-      <div class="mt-10 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+      <div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         <%= render partial: "cars/car", collection: @featured_cars, as: :car, locals: { context: :card } %>
       </div>
     <% else %>
-      <div class="mt-10 rounded-2xl border border-dashed border-slate-300 bg-white/80 px-6 py-8 text-center text-slate-500">
-        Todavía no hay vehículos publicados. Sé la primera persona en agregar uno.
+      <div class="mt-12 rounded-2xl border-2 border-dashed border-slate-300 bg-gradient-to-br from-slate-100 to-blue-50 px-6 py-12 text-center">
+        <p class="text-lg font-semibold text-slate-600">📍 Todavía no hay vehículos publicados</p>
+        <p class="mt-2 text-slate-500">Sé el primero en compartir tu auto con nuestra comunidad</p>
       </div>
     <% end %>
   </section>
 
-  <section class="rounded-3xl border border-slate-200 bg-white/95 p-8 shadow-lg">
-    <div class="flex flex-col gap-6">
-      <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Revisa nuestros clientes satisfechos</p>
-        <h2 class="mt-2 text-3xl font-bold text-slate-900">Historias de la satisfacción de los compradores</h2>
-      </div>
-      <div class="grid gap-5 md:grid-cols-3">
-        <% testimonials = [
-          ["“Llegué a mi casa sin problemas y me entregaron el auto en perfectas condiciones.”", "María, Asunciòn"],
-          ["“Puedo recomendarte a mis amigos y seguro que se comprarán un auto con tu servicio.”", "Juan, San Lorenzo"],
-          ["“Me gustó mucho la facilidad de contactar a los vendedores, era muy fácil.”", "Ana, Capiatá"]
-        ] %>
-        <% testimonials.each do |quote, name| %>
-          <div class="flex flex-col gap-4 rounded-2xl border border-slate-100 bg-slate-50/80 p-5">
-            <span class="text-3xl text-slate-900/50">“</span>
-            <p class="text-base text-slate-700"><%= quote %></p>
-            <p class="text-sm font-semibold text-slate-900"><%= name %></p>
+  <section class="rounded-3xl border border-slate-200 bg-gradient-to-br from-white/98 via-emerald-50/40 to-cyan-50/30 p-8 shadow-2xl sm:p-12">
+    <div class="text-center">
+      <p class="text-xs font-bold uppercase tracking-[0.3em] text-emerald-600">Testimonios</p>
+      <h2 class="mt-3 text-4xl font-black text-slate-900">Lo que dicen nuestros clientes</h2>
+      <p class="mt-2 text-lg text-slate-600">Miles de personas han encontrado su próximo vehículo a través de nuestra plataforma</p>
+    </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      <% testimonials = [
+        ["Un proceso súper fácil y rápido. El auto llegó en perfectas condiciones.", "María", "Asunción", "⭐⭐⭐⭐⭐"],
+        ["Muy profesionales. Recomiendo sin dudarlo a mis amigos y familia.", "Juan", "San Lorenzo", "⭐⭐⭐⭐⭐"],
+        ["Facilidad de contacto con vendedores verificados. Excelente experiencia.", "Ana", "Capiatá", "⭐⭐⭐⭐⭐"]
+      ] %>
+      <% testimonials.each do |quote, name, city, rating| %>
+        <div class="group relative rounded-2xl border border-emerald-200/50 bg-gradient-to-br from-white to-emerald-50/40 p-6 shadow-lg transition duration-300 hover:shadow-xl hover:border-emerald-400/70 hover:bg-emerald-50/70 hover:-translate-y-2">
+          <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-400/0 to-cyan-400/0 opacity-0 transition duration-300 group-hover:from-emerald-400/5 group-hover:to-cyan-400/5"></div>
+          <div class="relative">
+            <div class="mb-4 flex items-center justify-between">
+              <span class="text-3xl text-emerald-300">❝</span>
+              <span class="text-sm font-bold text-emerald-600"><%= rating %></span>
+            </div>
+            <p class="text-base font-medium text-slate-700"><%= quote %></p>
+            <div class="mt-4 border-t border-emerald-200/50 pt-4">
+              <p class="font-bold text-slate-900"><%= name %></p>
+              <p class="text-sm text-slate-500"><%= city %></p>
+            </div>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </section>
 
-  <section class="rounded-3xl border border-slate-200 bg-white/95 p-8 text-center shadow-xl shadow-slate-200/70">
-    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Atención personalizada</p>
-    <h2 class="mt-2 text-3xl font-bold text-slate-900">¿Listo para comprar tu próximo auto?</h2>
-    <p class="mt-3 text-base text-slate-600">
-      Agenda una visita a un vendedor registrado, revisa los autos disponibles y compra sin complicaciones.
+  <section class="rounded-3xl border border-slate-200 bg-gradient-to-r from-emerald-50 via-cyan-50 to-blue-50 p-8 text-center shadow-2xl sm:p-12">
+    <p class="text-xs font-bold uppercase tracking-[0.3em] text-emerald-600">Próximo paso</p>
+    <h2 class="mt-3 text-4xl font-black text-slate-900">¿Listo para encontrar tu próximo auto?</h2>
+    <p class="mt-3 text-lg text-slate-600 max-w-2xl mx-auto">
+      Descubre miles de vehículos verificados, conecta con vendedores confiables y compra con seguridad total.
     </p>
-    <div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+    <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
       <%= link_to "Explorar catálogo", cars_path,
-                  class: "inline-flex items-center justify-center rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:shadow-slate-200 hover:scale-105" %>
-      <%= link_to "Registrarse", new_user_registration_path,
-                  class: "inline-flex items-center justify-center rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:shadow-slate-200 hover:scale-105" %>
+                  class: "group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 px-7 py-4 text-base font-bold text-slate-900 shadow-lg shadow-emerald-500/40 transition hover:shadow-emerald-500/60 hover:-translate-y-1 hover:scale-105" %>
+      <%= link_to "Crear mi cuenta", new_user_registration_path,
+                  class: "group inline-flex items-center justify-center gap-2 rounded-full border-2 border-emerald-400/40 bg-white px-7 py-4 text-base font-bold text-slate-900 transition hover:border-emerald-400 hover:bg-emerald-50 hover:shadow-lg hover:-translate-y-1" %>
     </div>
   </section>
 </div>
