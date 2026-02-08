@@ -1,20 +1,32 @@
 
-<div class="bg-gradient-to-br from-slate-100 via-slate-200 to-slate-100 py-12">
-  <div class="mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8">
-    <div class="text-center">
-      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Garage</p>
-      <h1 class="mt-2 text-4xl font-bold text-slate-900">Agregar nuevo vehículo</h1>
-      <p class="mt-3 text-base text-slate-600">
-        Completa la información para publicar tu vehículo.
-      </p>
+<div class="min-h-screen bg-gradient-to-tr from-indigo-50 via-slate-100 to-indigo-100 py-12 flex items-center justify-center">
+  <div class="w-full max-w-2xl space-y-10 bg-white/90 p-10 rounded-3xl shadow-2xl border border-slate-200 relative">
+    
+    <div class="flex flex-col items-center space-y-3">
+      <div class="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center mb-2 shadow-inner">
+        <svg class="w-10 h-10 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <rect x="4" y="11" width="16" height="6" rx="3"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          <circle cx="7.5" cy="17.5" r="2"></circle>
+          <circle cx="16.5" cy="17.5" r="2"></circle>
+        </svg>
+      </div>
+      <h1 class="text-4xl font-extrabold tracking-tight text-indigo-700">Agregar nuevo vehículo</h1>
+      <p class="text-base text-slate-500 mt-1">Completa la información para publicar tu vehículo.</p>
     </div>
 
-    <div class="mt-10 rounded-3xl border border-slate-200 bg-white/80 p-8 shadow-sm backdrop-blur-sm">
+    <div class="mt-8">
       <%= render "form", car: @car, submit_label: "Crear vehículo" %>
     </div>
 
-    <div class="mt-8 flex justify-center">
-      <%= link_to "Volver al listado", cars_path, class: "inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-400 hover:text-slate-900 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-300" %>
+    <div class="mt-10 flex justify-center">
+      <%= link_to cars_path,
+        class: "inline-flex items-center justify-center gap-2 rounded-full border border-indigo-200 bg-white px-6 py-2.5 text-sm font-semibold text-indigo-700 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-400 hover:text-indigo-900 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-200" do %>
+        <svg class="h-4 w-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        Volver al listado
+      <% end %>
     </div>
   </div>
 </div>

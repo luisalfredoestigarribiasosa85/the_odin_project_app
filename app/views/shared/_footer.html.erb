@@ -1,16 +1,31 @@
-<footer class="border-t border-slate-800 bg-slate-900/95 text-slate-200 backdrop-blur">
-  <div class="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-4 px-4 py-8 text-center sm:flex-row sm:justify-between sm:text-left">
-    <div>
-      <p class="text-sm font-semibold tracking-[0.4em] text-slate-400">Dealer</p>
-      <p class="text-lg font-semibold text-white">Car Dealer</p>
-      <p class="mt-2 text-sm text-slate-400">&copy; <%= Time.current.year %> Car Dealer. Todos los derechos reservados.</p>
-    </div>
-
-    <div class="flex items-center gap-3 text-sm text-slate-300">
-      <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-lg">🚘</span>
-      <p>
-        Vehículos seleccionados con garantía y asistencia 24/7.
-      </p>
+<footer class="border-t border-indigo-200 bg-gradient-to-tr from-slate-900/95 via-indigo-950/90 to-slate-800/95 text-slate-100 backdrop-blur-lg shadow-2xl">
+  <div class="mx-auto w-full max-w-6xl px-6 py-10">
+    <div class="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-12 w-12 flex items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600/90 to-indigo-300/10 shadow-inner">
+          <svg class="w-7 h-7 text-white drop-shadow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="11" width="16" height="6" rx="3"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            <circle cx="7.5" cy="17.5" r="2"/>
+            <circle cx="16.5" cy="17.5" r="2"/>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-xs font-medium uppercase tracking-[0.4em] text-indigo-300">Dealer</span>
+          <span class="block text-2xl font-extrabold text-white tracking-tight drop-shadow">Car Dealer</span>
+        </div>
+      </div>
+      <div class="flex flex-col sm:items-end">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-indigo-400 bg-indigo-900/50 text-lg shadow">
+            🚘
+          </span>
+          <span class="text-base text-indigo-100 font-medium">Vehículos seleccionados con <span class="text-indigo-300 font-semibold">garantía</span> y asistencia <span class="text-indigo-300 font-semibold">24/7</span>.</span>
+        </div>
+        <div class="mt-3 text-xs text-indigo-200 font-light">
+          &copy; <%= Time.current.year %> Car Dealer. Todos los derechos reservados.
+        </div>
+      </div>
     </div>
   </div>
 </footer>

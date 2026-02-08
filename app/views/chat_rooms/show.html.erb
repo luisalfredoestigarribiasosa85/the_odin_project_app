@@ -1,34 +1,66 @@
-<div class="flex flex-col h-screen bg-gray-50">
-  <div class="bg-white border-b px-6 py-4 flex items-center shadow-sm">
-    <div class="h-10 w-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold mr-3">
-      <%= @chat_room.car.make&.first&.upcase %>
+<div class="flex flex-col h-screen bg-gradient-to-tr from-indigo-50 via-slate-100 to-indigo-100">
+  <header class="bg-white/95 border-b px-8 py-6 flex items-center gap-4 shadow-sm rounded-b-2xl relative">
+    <% if @chat_room.car.featured_image&.attached? %>
+      <%= image_tag @chat_room.car.featured_image, class: "h-14 w-14 object-cover rounded-xl border-2 border-indigo-100 shadow-md" %>
+    <% else %>
+      <div class="h-14 w-14 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-500 text-2xl font-extrabold border-2 border-indigo-50 shadow-md">
+        <%= @chat_room.car.make&.first&.upcase || "?" %>
+      </div>
+    <% end %>
+    <div>
+      <div class="flex items-center gap-3 mb-1">
+        <span class="text-xs font-semibold uppercase tracking-wide text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full shadow-inner">
+          <%= @chat_room.car.year %>
+        </span>
+        <h1 class="text-2xl font-bold text-indigo-900 tracking-tight flex items-end gap-2">
+          <span><%= @chat_room.car.make %> <%= @chat_room.car.model %></span>
+        </h1>
+      </div>
+      <div class="flex items-center text-xs text-slate-500">
+        <svg class="h-4 w-4 mr-1 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M16 12A4 4 0 1 0 8 12a4 4 0 0 0 8 0ZM21 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
+        </svg>
+        <span class="font-medium text-indigo-700"><%= @chat_room.buyer.username %></span>
+        <span class="mx-2 text-indigo-200">•</span>
+        <span class="font-medium text-indigo-700"><%= @chat_room.seller.username %></span>
+      </div>
     </div>
-    <h1 class="text-lg font-bold text-gray-800"><%= @chat_room.car.make %> <%= @chat_room.car.model %> <%= @chat_room.car.year %></h1>
-  </div>
+    <%= link_to car_path(@chat_room.car), class: "ml-auto inline-flex items-center gap-1 text-xs font-medium text-indigo-600 hover:text-indigo-900 bg-indigo-50 border border-indigo-100 rounded-full px-4 py-1.5 shadow hover:bg-indigo-100 transition mr-2" do %>
+      <svg class="h-4 w-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Ver auto
+    <% end %>
+  </header>
 
-  <%# Esta linea abre la conexion WebSocket %>
   <%= turbo_stream_from @chat_room %>
 
-  <div id="messages" class="flex-1 overflow-y-auto p-4 space-y-4" data-current-user-id="<%= current_user.id %>">
+  <div id="messages" class="flex-1 overflow-y-auto p-6 space-y-4 max-w-2xl mx-auto w-full" data-current-user-id="<%= current_user.id %>">
     <%= render @messages %>
   </div>
 
-  <%= render "messages/form", chat_room: @chat_room, message: @message %>
+  <div class="bg-white/95 border-t py-4 px-6 shadow-lg rounded-t-2xl">
+    <%= render "messages/form", chat_room: @chat_room, message: @message %>
+  </div>
 </div>
 
 <style>
-  /* Si el ID del que envió el mensaje COINCIDE con mi ID actual... */
   #messages[data-current-user-id="<%= current_user.id %>"] [data-message-sender-id="<%= current_user.id %>"] {
     justify-content: flex-end;
   }
   #messages[data-current-user-id="<%= current_user.id %>"] [data-message-sender-id="<%= current_user.id %>"] .message-bubble {
-    background-color: #4f46e5; /* indigo-600 */
+    background: linear-gradient(90deg,#6366f1 70%,#818cf8 100%);
     color: white;
     border-top-right-radius: 0;
     border-top-left-radius: 1rem;
     border-color: transparent;
+    box-shadow: 0px 2px 8px rgba(60, 70, 180, 0.09);
   }
   #messages[data-current-user-id="<%= current_user.id %>"] [data-message-sender-id="<%= current_user.id %>"] .sender-name {
-    display: none; /* No necesito ver mi propio nombre */
+    display: none;
+  }
+  #messages {
+    scroll-behavior: smooth;
+    background: transparent;
   }
 </style>

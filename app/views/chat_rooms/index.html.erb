@@ -1,39 +1,74 @@
-<div class="flex flex-col h-screen bg-gray-50">
-  <header class="bg-white border-b px-6 py-4 shrink-0">
-    <h1 class="text-xl font-bold text-gray-800">Mis Conversaciones</h1>
+<div class="flex flex-col min-h-screen bg-gradient-to-tr from-indigo-50 via-slate-100 to-indigo-100">
+  <header class="bg-white/90 border-b px-8 py-6 shadow-sm shrink-0 rounded-b-2xl">
+    <div class="flex items-center gap-3">
+      <div class="h-10 w-10 flex items-center justify-center rounded-full bg-blue-100 shadow-inner">
+        <svg class="w-6 h-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path d="M16 17l-4 4m0 0l-4-4m4 4V3" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <h1 class="text-3xl font-black text-indigo-800 drop-shadow">Mis Conversaciones</h1>
+    </div>
+    <p class="text-slate-500 mt-2 text-base">Revisa y continúa tus conversaciones recientes sobre vehículos.</p>
   </header>
   
-  <div class="flex-1 overflow-y-auto p-6">
-    <div class="max-w-3xl mx-auto space-y-4">
-      <% @chat_rooms.each do |chat_room| %>
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center justify-between hover:border-blue-300 transition-all group">
-          <div class="space-y-1">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
-                <%= chat_room.car.year %>
-              </span>
-              <h3 class="text-lg font-bold text-gray-900">
-                <%= chat_room.car.make %> <%= chat_room.car.model %>
-              </h3>
-            </div>
-            
-            <div class="flex items-center text-sm text-gray-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-              <span class="font-medium text-gray-700"><%= chat_room.buyer.username %></span>
-              <span class="mx-2 text-gray-300">•</span>
-              <span class="font-medium text-gray-700"><%= chat_room.seller.username %></span>
-            </div>
-          </div>
-
-          <%= link_to chat_room_path(chat_room), class: "flex items-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-sm" do %>
-            <span>Ver conversación</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          <% end %>
+  <div class="flex-1 overflow-y-auto p-8">
+    <div class="max-w-3xl mx-auto space-y-6">
+      <% if @chat_rooms.empty? %>
+        <div class="flex flex-col items-center justify-center py-24">
+          <svg class="w-20 h-20 text-blue-200 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" />
+            <circle cx="12" cy="8" r="4" />
+          </svg>
+          <span class="text-lg text-slate-500 font-semibold">Aún no tienes conversaciones activas.</span>
         </div>
+      <% else %>
+        <% @chat_rooms.each do |chat_room| %>
+          <div class="bg-white/95 rounded-2xl shadow-lg border border-indigo-100 flex items-center justify-between gap-6 px-8 py-6 hover:border-blue-300 hover:shadow-xl transition-all duration-200 group">
+            <div class="flex items-center gap-5">
+              <div class="flex-shrink-0">
+                <% if chat_room.car.featured_image&.attached? %>
+                  <%= image_tag chat_room.car.featured_image,
+                                class: "w-20 h-20 rounded-xl object-cover border-2 border-indigo-100 shadow group-hover:scale-105 transition-transform" %>
+                <% else %>
+                  <div class="w-20 h-20 flex items-center justify-center rounded-xl bg-gradient-to-br from-indigo-50 via-slate-100 to-indigo-200 border-2 border-indigo-50">
+                    <svg class="h-8 w-8 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <rect x="4" y="11" width="16" height="6" rx="3"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                      <circle cx="7.5" cy="17.5" r="2"></circle>
+                      <circle cx="16.5" cy="17.5" r="2"></circle>
+                    </svg>
+                  </div>
+                <% end %>
+              </div>
+              <div class="space-y-1">
+                <div class="flex items-center gap-3">
+                  <span class="text-xs font-semibold uppercase tracking-widest text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full shadow-inner">
+                    <%= chat_room.car.year %>
+                  </span>
+                  <h3 class="text-xl font-bold text-indigo-900">
+                    <%= chat_room.car.make %> <%= chat_room.car.model %>
+                  </h3>
+                </div>
+                
+                <div class="flex items-center text-sm text-slate-500 mt-1">
+                  <svg class="h-4 w-4 mr-1.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M16 12A4 4 0 1 0 8 12a4 4 0 0 0 8 0ZM21 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
+                  </svg>
+                  <span class="font-medium text-indigo-700"><%= chat_room.buyer.username %></span>
+                  <span class="mx-2 text-indigo-200">•</span>
+                  <span class="font-medium text-indigo-700"><%= chat_room.seller.username %></span>
+                </div>
+              </div>
+            </div>
+
+            <%= link_to chat_room_path(chat_room), class: "flex items-center gap-2 px-7 py-3 rounded-xl border-2 border-blue-100 bg-blue-600 text-white text-base font-semibold shadow-lg hover:bg-blue-700 hover:scale-105 hover:border-blue-300 transition-all duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300" do %>
+              <span>Ver conversación</span>
+              <svg class="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

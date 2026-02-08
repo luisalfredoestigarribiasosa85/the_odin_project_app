@@ -1,46 +1,83 @@
-<div class="bg-gradient-to-br from-slate-100 via-slate-200 to-slate-100 py-12">
-  <div class="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
+<div class="bg-gradient-to-br from-indigo-50 via-slate-100 to-indigo-200 py-16 min-h-screen">
+  <div class="mx-auto w-full max-w-5xl px-4 sm:px-8 lg:px-12">
     <% if notice.present? %>
-      <div class="mb-6 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 shadow-sm">
-        <p><%= notice %></p>
+      <div class="mb-8 flex items-center gap-3 rounded-xl border border-emerald-300 bg-emerald-50/80 px-6 py-4 text-base text-emerald-900 shadow-lg animate-fade-in">
+        <svg class="w-6 h-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+          <path d="M8 12l2 2l4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span><%= notice %></span>
       </div>
     <% end %>
 
-    <div class="flex flex-col gap-8 lg:flex-row">
+    <div class="flex flex-col gap-10 md:gap-14 lg:flex-row">
       <div class="flex-1">
-        <div class="rounded-3xl border border-slate-200 bg-white/70 p-6 shadow-sm backdrop-blur-sm">
-          <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div class="rounded-3xl border border-indigo-100 bg-white/80 p-8 shadow-xl backdrop-blur-lg relative overflow-hidden">
+          <div class="absoulte top-0 left-0 opacity-10 pointer-events-none w-full h-full bg-[url('https://www.svgbackgrounds.com/2021/decorative-vehicle.svg')] bg-cover"></div>
+          <div class="flex items-center justify-between border-b border-indigo-50 pb-6">
             <div>
-              <p class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Detalle</p>
-              <h2 class="mt-2 text-3xl font-bold text-slate-900">Ficha del vehículo</h2>
+              <p class="text-xs font-semibold uppercase tracking-widest text-indigo-600">Detalle</p>
+              <h2 class="mt-2 text-4xl font-extrabold text-indigo-900 tracking-tight drop-shadow">Ficha del vehículo</h2>
             </div>
-            <span class="rounded-full bg-slate-900 px-4 py-1 text-sm font-semibold text-white shadow-sm">
-              ID <%= @car.id %>
-            </span>
+            <span class="rounded-full bg-indigo-700/90 px-5 py-1.5 text-md font-bold text-white shadow-md tracking-wider">ID <%= @car.id %></span>
           </div>
 
-          <div class="mt-6">
+          <div class="mt-8">
             <%= render partial: "cars/car", locals: { car: @car, context: :detail } %>
           </div>
         </div>
       </div>
 
       <aside class="w-full lg:w-80">
-        <div class="sticky top-24 space-y-5 rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm">
-          <h3 class="text-lg font-semibold text-slate-900">Acciones</h3>
-          <p class="text-sm text-slate-600">Gestiona este vehículo desde el panel lateral.</p>
+        <div class="sticky top-24 space-y-8 rounded-3xl border border-indigo-100 bg-white/90 p-8 shadow-lg backdrop-blur-lg">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="h-10 w-10 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-500 text-2xl font-extrabold shadow">
+              <svg class="w-6 h-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="11" width="16" height="6" rx="3"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                <circle cx="7.5" cy="17.5" r="2"/>
+                <circle cx="16.5" cy="17.5" r="2"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-indigo-800 tracking-tight">Acciones</h3>
+              <p class="text-xs text-indigo-500 font-medium leading-tight">Gestiona este vehículo desde aquí</p>
+            </div>
+          </div>
+          <hr class="border-indigo-100 mb-4"/>
+          <div class="space-y-4">
+            <% if user_signed_in? && current_user.id == @car.user_id %>
+              <%= link_to edit_car_path(@car), class: "inline-flex w-full items-center justify-center gap-2 rounded-full bg-indigo-700 px-4 py-3 text-base font-semibold text-white shadow-lg hover:bg-indigo-800 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700" do %>
+                <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path d="M15.232 5.232l3.536 3.536M9 13l6-6a2 2 0 1 1 2.828 2.828l-6 6H9v-2z"/>
+                </svg>
+                Editar información
+              <% end %>
+            <% end %>
 
-          <div class="space-y-3">
-            <%= link_to "Editar información", edit_car_path(@car), class: "inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900" if user_signed_in? && current_user.id == @car.user_id %>
-
-            <%= link_to "Volver al listado", cars_path, class: "inline-flex w-full items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-400 hover:text-slate-900 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-300" %>
+            <%= link_to cars_path, class: "inline-flex w-full items-center justify-center gap-2 rounded-full border border-indigo-200 bg-white px-4 py-3 text-base font-semibold text-indigo-700 shadow hover:bg-indigo-100 hover:text-indigo-900 hover:shadow-md transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-200" do %>
+              <svg class="h-5 w-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Volver al listado
+            <% end %>
 
             <% if user_signed_in? && current_user.id == @car.user_id %>
-              <%= button_to "Eliminar vehículo", @car, method: :delete, data: { turbo_confirm: "¿Estás seguro de eliminarlo?" }, class: "inline-flex w-full items-center justify-center gap-2 rounded-full bg-red-800 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-800/20 transition hover:-translate-y-0.5 hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-800 cursor-pointer" %>
+              <%= button_to @car, method: :delete, data: { turbo_confirm: "¿Estás seguro de eliminarlo?" }, class: "inline-flex w-full items-center justify-center gap-2 rounded-full bg-red-600 px-4 py-3 text-base font-semibold text-white shadow-lg hover:bg-red-700 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 cursor-pointer" do %>
+                <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Eliminar vehículo
+              <% end %>
             <% end %>
 
             <% if user_signed_in? && current_user.id != @car.user_id %>
-              <%= button_to "Enviar mensaje al vendedor", chat_rooms_path(car_id: @car.id), method: :post, class: "inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 cursor-pointer" %>
+              <%= button_to chat_rooms_path(car_id: @car.id), method: :post, class: "inline-flex w-full items-center justify-center gap-2 rounded-full bg-indigo-700 px-4 py-3 text-base font-semibold text-white shadow-lg hover:bg-indigo-800 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 cursor-pointer" do %>
+                <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                Enviar mensaje al vendedor
+              <% end %>
             <% end %>
           </div>
         </div>

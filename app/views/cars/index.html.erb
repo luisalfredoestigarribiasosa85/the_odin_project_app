@@ -1,32 +1,55 @@
 <% content_for :title, "Autos" %>
 
-<div class="bg-gradient-to-br from-slate-100 via-slate-200 to-slate-100 py-12">
-  <div class="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+<div class="bg-gradient-to-tr from-indigo-50 via-slate-100 to-indigo-100 py-14 min-h-screen">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12">
     <% if notice.present? %>
-      <div class="mb-6 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 shadow-sm">
-        <p><%= notice %></p>
+      <div class="mb-8 flex items-center gap-3 rounded-xl border border-emerald-300 bg-emerald-50/80 px-6 py-4 text-base text-emerald-900 shadow-lg">
+        <svg class="w-6 h-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+          <path d="M8 12l2 2l4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span><%= notice %></span>
       </div>
     <% end %>
 
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between mb-10">
       <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Garage</p>
-        <h1 class="mt-2 text-4xl font-bold text-slate-900">Autos</h1>
-        <p class="mt-3 max-w-2xl text-base text-slate-600">
-          Explora la colección de vehículos disponibles en nuestro garage.
+        <div class="flex items-center gap-2">
+          <span class="inline-flex rounded-full bg-indigo-100 px-3 py-0.5 text-xs font-semibold uppercase tracking-widest text-indigo-700 shadow">Garage</span>
+        </div>
+        <h1 class="mt-3 text-5xl font-black text-indigo-800 drop-shadow">Autos</h1>
+        <p class="mt-4 max-w-2xl text-base text-slate-600 leading-relaxed">
+          Explora la colección de vehículos exclusivos y encuentra el auto perfecto para ti.
         </p>
       </div>
-      <%= link_to "Nuevo auto", new_car_path,
-                  class: "inline-flex w-full items-center justify-center rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 sm:w-auto" %>
+      <%= link_to new_car_path, class: "inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-md hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition" do %>
+        <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Nuevo auto
+      <% end %>
     </div>
 
-    <div id="cars" class="mt-10 grid gap-10 sm:grid-cols-2 xl:grid-cols-3">
+    <div id="cars" class="mt-10 grid gap-12 sm:grid-cols-2 xl:grid-cols-3">
       <% @cars.each do |car| %>
-        <div class="relative flex flex-col gap-6">
+        <div class="relative flex flex-col gap-5 rounded-2xl border border-slate-200 bg-white shadow-lg hover:shadow-2xl transition-shadow duration-200 overflow-hidden">
           <%= render partial: "cars/car", locals: { car: car, context: :card } %>
-          <div class="flex justify-end px-6">
-            <%= link_to "Ver detalles", car, class: "inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-300" %>
+          <div class="flex justify-end px-6 pb-4">
+            <%= link_to car, class: "inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-5 py-2.5 text-sm font-medium text-indigo-700 shadow-sm hover:bg-indigo-100 hover:text-indigo-900 hover:shadow-md transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-200" do %>
+              <svg class="h-4 w-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Ver detalles
+            <% end %>
           </div>
+        </div>
+      <% end %>
+      <% if @cars.empty? %>
+        <div class="col-span-full flex flex-col items-center justify-center py-20">
+          <svg class="h-20 w-20 text-slate-300 mb-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M3 17v-4a4 4 0 0 1 4-4h1" /><path d="M7 9V7a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2" /><circle cx="7.5" cy="17.5" r="2.5" /><circle cx="16.5" cy="17.5" r="2.5" /><path d="M2 17.5h20" />
+          </svg>
+          <span class="text-lg text-slate-500 font-medium">Aún no hay autos publicados.</span>
         </div>
       <% end %>
     </div>
